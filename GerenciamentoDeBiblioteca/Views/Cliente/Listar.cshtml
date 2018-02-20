@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ClienteViewModel>
+
+<a class="btn btn-success mt-5" style="margin: 10px" asp-controller="Cliente" asp-action="Cadastrar">Cadastrar novo cliente</a>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Quantidade de livros emprestados</th>
+            <th>Editar cliente</th>
+            <th>Deletar cliente</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var clienteViewModel in Model)
+        {
+            <tr>
+                <td>@clienteViewModel.Cliente.ClienteId</td>
+                <td>@clienteViewModel.Cliente.Nome</td>
+                <td>@clienteViewModel.ContadorLivros</td>
+                <td><a class="btn btn-info" asp-area="" asp-controller="Cliente" asp-action="Editar" asp-route-id="@clienteViewModel.Cliente.ClienteId">Editar</a></td>
+                <td><a class="btn btn-danger" asp-area="" asp-controller="Cliente" asp-action="Apagar" asp-route-id="@clienteViewModel.Cliente.ClienteId">Apagar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

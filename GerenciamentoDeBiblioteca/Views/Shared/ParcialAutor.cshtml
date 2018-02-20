@@ -1,0 +1,24 @@
+﻿@model AutorViewModel
+
+<div class="col-sm-4 col-lg-4 col-md-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <p>@Model.Autor.Nome</p>
+        </div>
+        <div class="panel-body">
+            <h2>Book count: @Model.Autor.Livros?.Count</h2>
+            <div class="btn-group">
+                @if (Model.Autor.Livros?.Count == 0)
+                {
+                    <a class="btn btn-default" asp-area="">Ver lista de livros</a>
+                }
+                else
+                {
+                    <a class="btn btn-info" asp-area="" asp-controller="Livro" asp-action="Listar" asp-route-authorId="@Model.Autor.AutorId">Voltar para lista</a>
+                }
+                <a class="btn btn-info" asp-area="" asp-controller="Autor" asp-action="Editar" asp-route-id="@Model.Autor.AutorId">Editar</a>
+                <a class="btn btn-danger" asp-area="" asp-controller="Autor" asp-action="Apagar" asp-route-id="@Model.Autor.AutorId">Apagar</a>
+            </div>
+        </div>
+    </div>
+</div>

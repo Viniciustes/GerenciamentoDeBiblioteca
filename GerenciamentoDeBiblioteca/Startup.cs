@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using GerenciamentoDeBiblioteca.Data.Contexto;
+using GerenciamentoDeBiblioteca.Data.Interfaces;
+using GerenciamentoDeBiblioteca.Data.Repositorio;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +20,10 @@ namespace GerenciamentoDeBiblioteca
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DbBibliotecaContexto>(options => options.UseInMemoryDatabase("BibliotecaContexto"));
+            services.AddTransient<IRepositorioAutor, RepositorioAutor>();
+            services.AddTransient<IRepositorioCliente, RepositorioCliente>();
+            services.AddTransient<IRepositorioLivro, RepositorioLivro>();
             services.AddMvc();
         }
 
@@ -39,6 +47,8 @@ namespace GerenciamentoDeBiblioteca
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbInitialize.Seed(app);
         }
     }
 }

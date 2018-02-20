@@ -1,0 +1,10 @@
+﻿@model IEnumerable<AutorViewModel>
+
+<a class="btn btn-success mt-5" style="margin: 10px" asp-controller="Autor" asp-action="Cadastrar">Cadastrar novo autor</a>
+
+<div class="row">
+    @foreach (var autorViewModel in Model)
+    {
+        @Html.Partial("ParcialAutor", autorViewModel)
+    }
+</div>
