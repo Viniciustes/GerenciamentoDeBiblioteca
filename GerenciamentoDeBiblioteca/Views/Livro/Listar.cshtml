@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Livro>
+
+<a class="btn btn-success mt-5" style="margin: 10px" asp-controller="Livro" asp-action="Cadastrar">Cadastrar livro</a>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Nome do autor</th>
+            <th>Editar livro</th>
+            <th>Apagar livro</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Livro livro in Model)
+        {
+            <tr>
+                <td>@livro.LivroId</td>
+                <td>@livro.Titulo</td>
+                <td>@livro.Autor.Nome</td>
+                <td><a class="btn btn-info" asp-area="" asp-controller="Livro" asp-action="Editar" asp-route-id="@livro.LivroId">Editar</a></td>
+                <td><a class="btn btn-danger" asp-area="" asp-controller="Livro" asp-action="Apagar" asp-route-id="@livro.LivroId" asp-route-authorId="@ViewBag.AutorId">Apagar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -8,6 +8,7 @@ namespace GerenciamentoDeBiblioteca.Data.Entidades
         [Key]
         public Guid LivroId { get; set; }
         public string Titulo { get; set; }
+        public bool Emprestado { get; set; }
 
         public virtual Autor Autor { get; set; }
         public Guid AutorId { get; set; }

@@ -1,33 +1,33 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using GerenciamentoDeBiblioteca.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using GerenciamentoDeBiblioteca.Data.Interfaces;
+using GerenciamentoDeBiblioteca.ViewModels;
+using System;
 
 namespace GerenciamentoDeBiblioteca.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IRepositorioLivro _repositorioLivro;
+        private readonly IRepositorioAutor _repositorioAutor;
+        private readonly IRepositorioCliente _repositorioCliente;
+
+        public HomeController(IRepositorioLivro repositorioLivro, IRepositorioAutor repositorioAutor, IRepositorioCliente repositorioCliente)
+        {
+            _repositorioLivro = repositorioLivro;
+            _repositorioAutor = repositorioAutor;
+            _repositorioCliente = repositorioCliente;
+        }
+
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var homeViewModel = new HomeViewModel()
+            {
+                QuantidadeDeLivros = _repositorioLivro.Contar(x => true),
+                QuantidadeDeAutores = _repositorioAutor.Contar(x => true),
+                QuantidadeDeClientes = _repositorioCliente.Contar(x => true),
+                QuantidadeDeEmprestimos = _repositorioLivro.Contar(x => x.ClienteId != Guid.Empty)
+            };
+            return View(homeViewModel);
         }
     }
 }

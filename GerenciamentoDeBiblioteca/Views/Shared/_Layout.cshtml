@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - GerenciamentoDeBiblioteca</title>
+    <title>@ViewData["Title"] - Gerenciamento De Biblioteca</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -26,13 +26,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">GerenciamentoDeBiblioteca</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Gerenciamento De Biblioteca</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Painel</a></li>
                     <li><a asp-area="" asp-controller="Cliente" asp-action="">Cliente</a></li>
                     <li><a asp-area="" asp-controller="Autor" asp-action="">Autor</a></li>
+                    <li><a asp-area="" asp-controller="Livro" asp-action="">Livro</a></li>
+                    <li><a asp-area="" asp-controller="Emprestimo" asp-action="">Emprestar</a></li>
+                    <li><a asp-area="" asp-controller="Devolucao" asp-action="">Devolver</a></li>
                 </ul>
             </div>
         </div>
@@ -41,7 +44,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - GerenciamentoDeBiblioteca</p>
+            <p>&copy; 2018 - Gerenciamento De Biblioteca By Vinícius Barreira </p>
         </footer>
     </div>
 

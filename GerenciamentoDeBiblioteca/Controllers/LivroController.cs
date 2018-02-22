@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using GerenciamentoDeBiblioteca.Data.Entidades;
 using GerenciamentoDeBiblioteca.Data.Interfaces;
+using GerenciamentoDeBiblioteca.ViewModels;
 
 namespace GerenciamentoDeBiblioteca.Controllers
 {
@@ -18,6 +19,48 @@ namespace GerenciamentoDeBiblioteca.Controllers
             _repositorioAutor = repositorioAutor;
         }
 
+        public IActionResult Cadastrar()
+        {
+            var livroViewModel = new LivroViewModel()
+            {
+                Autores = _repositorioAutor.BuscarTodos()
+            };
+            return View(livroViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Cadastrar(LivroViewModel livroViewModel)
+        {
+            _repositorioLivro.Cadastrar(livroViewModel.Livro);
+            return RedirectToAction("Listar");
+        }
+
+        public IActionResult Editar(Guid id)
+        {
+            var livroViewModel = new LivroViewModel()
+            {
+                Livro = _repositorioLivro.BuscarPorId(id),
+                Autores= _repositorioAutor.BuscarTodos()
+            };
+            return View(livroViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(LivroViewModel livroViewModel)
+        {
+            _repositorioLivro.Atualizar(livroViewModel.Livro);
+            return RedirectToAction("Listar");
+        }
+
+        public IActionResult Apagar(Guid id)
+        {
+            var livro = _repositorioLivro.BuscarPorId(id);
+            _repositorioLivro.Apagar(livro);
+
+            return RedirectToAction("Listar");
+        }
+
+        [Route("Livro")]
         public IActionResult Listar(Guid? autorId, Guid? clienteId)
         {
             if (autorId == null && clienteId == null)
