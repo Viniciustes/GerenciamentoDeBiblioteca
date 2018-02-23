@@ -19,13 +19,24 @@ namespace GerenciamentoDeBiblioteca.Controllers
 
         public IActionResult Cadastrar()
         {
-            return View();
+            var cadastrarAutorViewModel = new CadastrarAutorViewModel()
+            {
+                Referer = Request.Headers["Referer"].ToString()
+            };
+
+            return View(cadastrarAutorViewModel);
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(Autor autor)
+        public IActionResult Cadastrar(CadastrarAutorViewModel cadastrarAutorViewModel)
         {
-            _repositorioAutor.Cadastrar(autor);
+            if (!ModelState.IsValid) return View(cadastrarAutorViewModel);
+
+            _repositorioAutor.Cadastrar(cadastrarAutorViewModel.Autor);
+
+            if (!string.IsNullOrEmpty(cadastrarAutorViewModel.Referer))
+                return Redirect(cadastrarAutorViewModel.Referer);
+
             return RedirectToAction("Listar");
         }
 
@@ -40,6 +51,8 @@ namespace GerenciamentoDeBiblioteca.Controllers
         [HttpPost]
         public IActionResult Editar(Autor autor)
         {
+            if (!ModelState.IsValid) return View(autor);
+
             _repositorioAutor.Atualizar(autor);
             return RedirectToAction("Listar");
         }

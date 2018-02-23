@@ -19,7 +19,7 @@ namespace GerenciamentoDeBiblioteca.Controllers
         [Route("Devolucao")]
         public IActionResult Listar()
         {
-            var livrosAlugados = _repositorioLivro.ProcurarComAutorELocator(v => v.Emprestado == true);
+            var livrosAlugados = _repositorioLivro.ProcurarComAutorELocator(v => v.ClienteId != Guid.Empty);
 
             if (livrosAlugados.Count() == 0)
                 return View("Vazio");
@@ -32,7 +32,6 @@ namespace GerenciamentoDeBiblioteca.Controllers
             var livro = _repositorioLivro.BuscarPorId(livroId);
             livro.ClienteId = Guid.Empty;
             livro.Cliente = null;
-            livro.Emprestado = false;
 
             _repositorioLivro.Atualizar(livro);
 

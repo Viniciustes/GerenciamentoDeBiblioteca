@@ -8,7 +8,10 @@ namespace GerenciamentoDeBiblioteca.Data.Entidades
     {
         [Key]
         public Guid AutorId { get; set; }
+
+        [Required, MinLength(3), MaxLength(50)]
         public string Nome { get; set; }
+
         public virtual ICollection<Livro> Livros { get; set; }
     }
 }

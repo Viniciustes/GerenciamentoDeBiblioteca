@@ -21,7 +21,7 @@ namespace GerenciamentoDeBiblioteca.Controllers
         public IActionResult Listar()
         {
             // Leitura de todos os livros disponíveis
-            var livrosDisponiveis = _repositorioLivro.ProcurarComAutor(v => v.Emprestado == false);
+            var livrosDisponiveis = _repositorioLivro.ProcurarComAutor(v => v.ClienteId == Guid.Empty);
 
             if (livrosDisponiveis.Count() == 0)
                 return View("Vazio");
@@ -46,7 +46,6 @@ namespace GerenciamentoDeBiblioteca.Controllers
             var cliente = _repositorioCliente.BuscarPorId(emprestimoViewModel.Livro.ClienteId);
 
             livro.Cliente = cliente;
-            livro.Emprestado = true;
 
             _repositorioLivro.Atualizar(livro);
 

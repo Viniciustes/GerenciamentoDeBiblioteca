@@ -27,6 +27,8 @@ namespace GerenciamentoDeBiblioteca.Controllers
         [HttpPost]
         public IActionResult Cadastrar(Cliente cliente)
         {
+            if (!ModelState.IsValid) return View(cliente);
+
             _repositorioCliente.Cadastrar(cliente);
             return RedirectToAction("Listar");
         }
@@ -42,6 +44,8 @@ namespace GerenciamentoDeBiblioteca.Controllers
         [HttpPost]
         public IActionResult Editar(Cliente cliente)
         {
+            if (!ModelState.IsValid) return View(cliente);
+
             _repositorioCliente.Atualizar(cliente);
             return RedirectToAction("Listar");
         }

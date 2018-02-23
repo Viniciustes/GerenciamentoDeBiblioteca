@@ -31,6 +31,12 @@ namespace GerenciamentoDeBiblioteca.Controllers
         [HttpPost]
         public IActionResult Cadastrar(LivroViewModel livroViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                livroViewModel.Autores = _repositorioAutor.BuscarTodos();
+                return View(livroViewModel);
+            }
+
             _repositorioLivro.Cadastrar(livroViewModel.Livro);
             return RedirectToAction("Listar");
         }
@@ -48,6 +54,12 @@ namespace GerenciamentoDeBiblioteca.Controllers
         [HttpPost]
         public IActionResult Editar(LivroViewModel livroViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                livroViewModel.Autores = _repositorioAutor.BuscarTodos();
+                return View(livroViewModel);
+            }
+
             _repositorioLivro.Atualizar(livroViewModel.Livro);
             return RedirectToAction("Listar");
         }
